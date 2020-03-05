@@ -1,46 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Numans');
-@import url(https://fonts.googleapis.com/css?family=EB+Garamond|Cardo:400italic);
+@import url('https://fonts.googleapis.com/css?family=Averia+Libre');
 
 html {
     font-size: 14px !important;
 }
 .jumbotron {
-    position: relative;
-    height: 250px;
-    padding: 0 !important;
-    color: #FFFDD0 !important;
-
-    font-family: 'Cardo', serif;
-    font-size: 1.5em;
-    font-weight: normal;
-    font-style: italic;
-    letter-spacing: 0.1em;
-    line-height: 2.2em;
+    cursor: pointer;
+    font-family: 'Averia Libre';
+    height: 18rem;
+    z-index: 5;
+    color: #ff7b00 !important;
+    background: url('/img/header4.jpg') 70% 56%;
 }
-.jumbotron::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    width: 100%;
+.outer .height .inner {
+    text-decoration: none;
+    /*background-image: linear-gradient(to bottom, #a1a1a1 0%, #585858 50%, #4c4c4c 50%, #4c4c4c 100%);*/
+    font-size: 7rem;
+    font-weight: 900;
     height: 100%;
-    background: url('/img/header3.jpg') 70% 70%;
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
+    position: relative;
+    text-align: center;
+    color: #ff7b00 !important;
+    text-shadow: -0.1rem -0.1rem 0.1rem #000000, 0.1rem 0.2rem 0.3rem rgba(255, 255, 255, 0.8), 0 0 4rem #ff7b00;
 }
 h1.jumbotron-heading {
-    position: relative;
-    z-index: 2;
-    padding: 0 !important;
     margin-bottom: 0px !important;
-    margin-top: 60px !important;
-    font-size: 92px !important;
-    text-shadow: 0px 0px 5px #FF5300;
 }
 h3.card-header {
     padding: 0;
@@ -48,13 +31,14 @@ h3.card-header {
     text-align: center;
 }
 .jumbotron p {
-    position: relative;
-    z-index: 2;
-    color: #FFFDD0 !important;
-    font-size: 15px !important;
+    color: #ff7b00 !important;
+    font-family: 'Fugaz One', cursive;
+    font-size: 20px !important;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
 }
 .card-img-top {
-    height: 500px;
+    width: 100%;
+    height: auto;
     /*
     height: fit-content;
     width: 100%;
@@ -63,7 +47,7 @@ h3.card-header {
 }
 .img-fluid {
     width: 100%;
-    max-width: 250px;
+    max-width: 230px;
 }
 .col-md-4 {
     padding-left: 0px !important;
