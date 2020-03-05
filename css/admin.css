@@ -1,0 +1,22 @@
+html,body{
+    height: 100%;
+    font-size: 13px;
+}
+section.content .row {
+    margin-left:0 ;
+    margin-right: 0;
+}
+.navbar {
+    margin-bottom: 0;
+}
+.main-header .nav-link {
+    height: auto !important;
+}
+.projects .table-avatar img,
+.projects img.table-avatar {
+    border-radius: 0 !important;;
+    width: 10rem !important;
+}
+.card {
+    width: 100%;
+}

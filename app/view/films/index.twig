@@ -1,0 +1,244 @@
+{% extends 'home/index.twig' %}
+
+{% block title %}Review "{{ film.title }}"{% endblock %}
+
+{% block body %}
+
+    {% block header %}
+        {{ parent() }}
+    {% endblock %}
+
+    <main role="main">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8">
+                    <h1 class="mt-4">{{ film.title }}</h1>
+                    <p class="lead">Режисер: <a href="#">{{ film.director }}</a></p><hr>
+                    <p>Опубликовано: {{ film.created|date("F jS \\a\\t g:ia") }}</p><hr>
+                    <img class="img-fluid rounded" src="/uploads/{{ film.img }}" alt=""><hr>
+                    <p class="lead">{{ film.description }}</p><hr>
+
+                    {# Comments Form#}
+                    <div class="card my-4">
+                        <h5 class="card-header">Leave a Comment:</h5>
+                        <div class="card-body">
+                            <form>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Single Comment -->
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0">Commenter Name</h5>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+
+                    <!-- Comment with nested comments -->
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0">Commenter Name</h5>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                            <div class="media mt-4">
+                                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                                <div class="media-body">
+                                    <h5 class="mt-0">Commenter Name</h5>
+                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                </div>
+                            </div>
+
+                            <div class="media mt-4">
+                                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                                <div class="media-body">
+                                    <h5 class="mt-0">Commenter Name</h5>
+                                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sidebar Widgets Column -->
+                <div class="col-md-4">
+
+                    <!-- Categories Widget -->
+                    <div class="card my-4">
+                        <div class="card-body">
+                            <h3 class="card-header">Бронирование</h3>
+                            <div class="row">
+                                <div class="col-lg">
+                                    <!--Body-->
+                                    <div class="modal-body">
+                                        <form class="needs-validation" onsubmit="return false;" novalidate>
+                                            <input type="hidden" name="film_id" value="{{ film.id }}" id="booking-filmId"/>
+                                            <!-- Material input name -->
+                                            <div class="md-form form-sm">
+                                                <i class="fa fa-envelope prefix"></i>
+                                                <input name="username" type="text" id="booking-username" class="form-control form-control-sm" placeholder="Ваше имя" required>
+                                                <div class="valid-feedback">
+                                                    Отлично
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста введите имя
+                                                </div>
+                                            </div>
+
+                                            <!-- Material input email -->
+                                            <div class="md-form form-sm">
+                                                <i class="fa fa-lock prefix"></i>
+                                                <input name="email" type="email" id="booking-email" class="form-control form-control-sm" placeholder="Ваш e-mail" required>
+                                                <div class="valid-feedback">
+                                                    Отлично
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста введите email
+                                                </div>
+                                            </div>
+
+                                            <!-- Material input subject -->
+                                            <div class="md-form form-sm">
+                                                <i class="fa fa-tag prefix"></i>
+                                                <input name="phone" type="tel" id="booking-phone" class="form-control form-control-sm" placeholder="Ваш телефон" pattern="(?:\+38)?(?:\(044\)[ -]?[0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{2}|044[ -]?[0-9]{3}[ -]?[0-9]{2}[ -]?[0-9]{2}|044[0-9]{7}" required>
+                                                <div class="valid-feedback">
+                                                    Отлично
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста введите телефон в формате: +38(063) 725-70-18
+                                                </div>
+                                            </div>
+
+                                            <!-- Material input subject -->
+                                            <div class="md-form form-sm">
+                                                <i class="fa fa-tag prefix"></i>
+                                                <select name="session" class="form-control custom-select" id="booking-session" required>
+                                                    <option value="">Выберите время сеанса</option>
+                                                    <option value="10">10-00</option>
+                                                    <option value="12">12-00</option>
+                                                    <option value="14">14-00</option>
+                                                    <option value="16">16-00</option>
+                                                    <option value="18">18-00</option>
+                                                    <option value="20">20-00</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    Отлично
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Пожалуйста выберите время сеанса
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center mt-4 mb-2">
+                                                <button class="btn btn-primary" onclick="takeData()" type="submit">Начать бронирование<i class="fa fa-send ml-2"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="seatStructure">
+                                        <table class="booking" id="seatsBlock">
+                                            <p id="notification"></p>
+                                            <tr>
+                                                <td colspan="10"><div class="screen">Экран</div></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A1"><label>A1</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A2"><label>A2</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A3"><label>A3</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A4"><label>A4</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A5"><label>A5</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A6"><label>A6</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A7"><label>A7</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A8"><label>A8</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A9"><label>A9</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="A10"><label>A10</label></div></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B1"><label>B1</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B2"><label>B2</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B3"><label>B3</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B4"><label>B4</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B5"><label>B5</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B6"><label>B6</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B7"><label>B7</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B8"><label>B8</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B9"><label>B9</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="B10"><label>B10</label></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C1"><label>C1</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C2"><label>C2</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C3"><label>C3</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C4"><label>C4</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C5"><label>C5</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C6"><label>C6</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C7"><label>C7</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C8"><label>C8</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C9"><label>C9</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="C10"><label>C10</label></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D1"><label>D1</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D2"><label>D2</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D3"><label>D3</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D4"><label>D4</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D5"><label>D5</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D6"><label>D6</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D7"><label>D7</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D8"><label>D8</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D9"><label>D9</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="D10"><label>D10</label></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E1"><label>E1</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E2"><label>E2</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E3"><label>E3</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E4"><label>E4</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E5"><label>E5</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E6"><label>E6</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E7"><label>E7</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E8"><label>E8</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E9"><label>E9</label></div></td>
+                                                <td><div class="seat"><input type="checkbox" class="seats" value="E10"><label>E10</label></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"  class="screen-tips">
+                                                    <div class="smallBox greenBox">Selected Seat</div>
+                                                </td>
+                                                <td colspan="3"  class="screen-tips">
+                                                    <div class="smallBox redBox">Reserved Seat</div>
+                                                </td>
+                                                <td colspan="3"  class="screen-tips">
+                                                    <div class="smallBox emptyBox">Empty Seat</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <button class="btn btn-primary" onclick="updateTextArea()">Подтвердить выбраные места</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+
+    </main>
+{% endblock %}
