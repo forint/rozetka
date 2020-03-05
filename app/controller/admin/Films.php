@@ -106,9 +106,13 @@ class Films extends Controller
 
                         $this->uploadImage($filmId);
 
+                        $this->connection->setTrace(true);
                         $this->connection->where("id", $filmId);
                         $result = $connection->update('films', $_POST);
-
+/*print_r("<pre>");
+print_r($this->connection->trace);
+print_r("</pre>");
+die;*/
                         if ($result){
                             header('Location: /admin/films/index?message=Film updated successfully');
                         }else{

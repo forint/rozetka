@@ -5,6 +5,10 @@ use App\Core\Database;
 use App\Core\View;
 use App\Core\Controller;
 
+/**
+ * Class Films
+ * @package App\Controller
+ */
 class Films extends Controller
 {
     /**
@@ -43,6 +47,7 @@ class Films extends Controller
     public function viewAction($filmSlug)
     {
         $fullSeats = [];
+        $this->connection->where("status", '1');
         $this->connection->where("slug", $filmSlug);
         $film = $this->connection->getOne('films');
 
@@ -52,6 +57,8 @@ class Films extends Controller
             foreach ($seats as $_seats){
                 $fullSeats = array_merge($fullSeats, explode('|', $_seats['seats']));
             }
+        }else{
+            header('Location: /page/notFound');
         }
 
         View::renderTemplate('films/index.twig',[

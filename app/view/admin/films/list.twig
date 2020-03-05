@@ -148,60 +148,7 @@
             {% endblock %}
 
             {% block sidebar %}
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="/img/super-admin.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">Super Administrator</a>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Films
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/films/index" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>List films</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/films/add" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add film</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                    <span class="right badge badge-danger">New</span>
-                                </p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
+                {{ parent() }}
             {% endblock %}
         </aside>
 
@@ -259,6 +206,12 @@
                                     <th>
                                         Country
                                     </th>
+                                    <th>
+                                        Year
+                                    </th>
+                                    <th>
+                                        Duration
+                                    </th>
                                     <th style="width: 8%" class="text-center">
                                         Status
                                     </th>
@@ -293,6 +246,12 @@
                                                 <td class="country">
                                                     <small>{{ film.country }}</small>
                                                 </td>
+                                                <td class="year">
+                                                    <small>{{ film.year }}</small>
+                                                </td>
+                                                <td class="duration">
+                                                    <small>{{ film.duration }}</small>
+                                                </td>
                                                 <td class="project-state">
                                                     {% if film.status == 0 %}
                                                         <span class="badge badge-danger">Disabled</span>
@@ -301,11 +260,11 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="project-actions text-right">
-                                                    {#<a class="btn btn-primary btn-sm" href="#">
+                                                    <a class="btn btn-primary btn-sm" href="/films/view/film/{{ film.slug }}">
                                                         <i class="fas fa-folder">
                                                         </i>
                                                         View
-                                                    </a>#}
+                                                    </a>
                                                     <a class="btn btn-info btn-sm" href="/admin/films/edit/id/{{ film.id }}">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
@@ -405,6 +364,7 @@
             <!-- Default to the left -->
             <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>
+        {% block footer %}{% endblock %}
     </div>
     <!-- ./wrapper -->
 {% endblock %}

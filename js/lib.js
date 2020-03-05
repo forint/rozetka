@@ -101,6 +101,8 @@ function updateTextArea() {
         dataType: 'json',
         success: function (response) {
             $('.select-places-now').html(response['0']);
+            $(".seatStructure :checkbox").removeClass('select-places-now-available');
+            $(".seatStructure :checkbox").prop('disabled', true);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
@@ -114,7 +116,18 @@ $(":checkbox").click(function() {
 });
 
 $(document).ready(function(){
-    $('#owl').owlCarousel({
+
+    /** Clear seats if, user change session */
+    if ($('.needs-validation input, .needs-validation select').length > 0){
+        jQuery('.needs-validation input, .needs-validation select').change(function(input){
+            $(".seatStructure :checkbox").removeClass('reserved');
+            $(".seatStructure :checkbox").removeClass('select-places-now-available');
+            $(".seatStructure :checkbox").removeProp('checked');
+            $(".seatStructure :checkbox").prop('disabled', true);
+        });
+    }
+    if ($("#owl").length > 0){
+        $('#owl').owlCarousel({
         items: 5,
         margin: 15,
         autoplay: true,
@@ -140,11 +153,23 @@ $(document).ready(function(){
             }
         }
     });
-    //Background image
-    $( '.img-wrap' ).each( function(){
-        var img = $( this ).find( 'img' );
-        var src = img.attr( 'src' );
-        $( this ).css( 'background-image', 'url( '+ src +' )' );
-    });
+    }
+
+    if ($(".img-wrap").length > 0){
+        // Background image
+        $('.img-wrap').each( function(){
+            let img = $( this ).find( 'img' );
+            let src = img.attr( 'src' );
+            $( this ).css( 'background-image', 'url( '+ src +' )' );
+        });
+    }
+
+    if ($(".gridSelector").length > 0){
+        let grid = $(".gridSelector");
+        let asyncGrid = new Gridifier(grid, {
+            "class": "gridItem",
+        });
+        asyncGrid.append(asyncGrid.collectNew());
+    }
 
 });
