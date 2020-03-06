@@ -5,6 +5,10 @@ use App\Core\Database;
 use App\Core\View;
 use App\Core\Controller;
 
+/**
+ * Class Films
+ * @package App\Controller
+ */
 class Films extends Controller
 {
     /**
@@ -43,9 +47,12 @@ class Films extends Controller
     public function viewAction($filmSlug)
     {
         $fullSeats = [];
+        $this->connection->where("status", '1');
         $this->connection->where("slug", $filmSlug);
         $film = $this->connection->getOne('films');
-
+        if (!$film){
+            header('Location: /page/notFound');
+        }
         $this->connection->where("film_id", $film['id']);
         $seats = $this->connection->get('booking', null, ['seats']);
         if (sizeof($seats) > 0) {
@@ -79,7 +86,6 @@ class Films extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && is_numeric($film_id) && $username && $email && $phone && $session && $seats && sizeof($seats) > 0){
 
             $fullSeats = [];
-            // $this->connection->setTrace(true);
             $this->connection->where("film_id", $film_id);
             $this->connection->where("session", $session);
             $_seats = $this->connection->get('booking', null, ['seats']);
@@ -100,7 +106,6 @@ class Films extends Controller
                 ];
 
                 $result = $this->connection->insert('booking', $bookingData);
-                // print_r ($this->connection->trace); die;
                 if ($result){
                     $messages[] = 'Вы успешно забронировали выбраные места. Мы с нетерпением ожидаем вас в нашем кинотеатре.';
                 }else{
@@ -117,6 +122,11 @@ class Films extends Controller
         die;
     }
 
+    /**
+     * Retrieve seats by film id and session
+     *
+     * @throws \Exception
+     */
     public function checkReservedSeatsAction()
     {
         $fullSeats = [];
@@ -125,6 +135,7 @@ class Films extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && is_numeric($film_id) && $session){
 
+            // $this->connection->setTrace(true);
             $this->connection->where("film_id", $film_id);
             $this->connection->where("session", $session);
             $_seats = $this->connection->get('booking', null, ['seats']);

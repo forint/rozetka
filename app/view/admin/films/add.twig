@@ -26,12 +26,6 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
 
             <!-- SEARCH FORM -->
@@ -233,12 +227,26 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="inputClientCompany">Film Director</label>
-                                            <input name="director" type="text" id="inputClientCompany" class="form-control">
+                                            <label for="inputDirector">Film Director</label>
+                                            <input name="director" type="text" id="inputDirector" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label for="inputProjectLeader">Country</label>
-                                            <input name="country" type="text" id="inputProjectLeader" class="form-control">
+                                            <label for="inputCountry">Country</label>
+                                            <input name="country" type="text" id="inputCountry" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputYear">Year</label>
+                                            {% set year = 'now' | date('Y') %}
+                                            <select name="year" class="form-control custom-select">
+                                                <option selected="" disabled="">Select one</option>
+                                                {% for i in 1900..year %}
+                                                    <option value="{{ i }}">{{ i }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputDuration">Duration (minutes)</label>
+                                            <input name="duration" type="text" id="inputDuration" class="form-control">
                                         </div>
                                     </div>
                                     <!-- /.card-body -->
@@ -278,6 +286,7 @@
             <!-- Default to the left -->
             <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>
+        {% block footer %}{% endblock %}
     </div>
     <!-- ./wrapper -->
 {% endblock %}

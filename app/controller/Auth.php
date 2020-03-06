@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Core\Controller;
@@ -11,24 +10,16 @@ use App\Core\Settings;
  */
 class Auth extends Controller
 {
-    /* private $settings;
-
-    public function __construct(Settings $settings)
-    {
-        parent::__construct();
-        $this->settings = $settings;
-    }*/
     /**
-     * Before filter
+     * Sign In
      *
-     * @return void
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    protected function before()
-    {
-        // Make sure an admin user is logged in for example
-        // return false;
-    }
-
     public function loginAction()
     {
         $messages = [];
@@ -54,6 +45,10 @@ class Auth extends Controller
             'messages' => $messages
         ]);
     }
+
+    /**
+     * Sign out
+     */
     public function logoutAction()
     {
         session_unset($_SESSION['is_admin']);

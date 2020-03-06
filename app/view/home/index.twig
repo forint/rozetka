@@ -16,10 +16,12 @@
 <body class="homepage" onload="onLoaderFunc()">
     {% block javascripts %}
         <script src="/js/jquery.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
         <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
         {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/js/mdb.min.js"></script>#}
         <script src="/js/owl.carousel.min.js"></script>
         {#<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.3/owl.carousel.min.js"></script>#}
+        <script src="/js/gridifier.min.js"></script>
         <script src="/js/lib.js"></script>
     {% endblock %}
 
@@ -31,7 +33,13 @@
             {% block header %}
                 <section class="jumbotron">
                     <div class="container">
-                        <h1 class="jumbotron-heading">Киноняша</h1>
+                        <h1 class="jumbotron-heading">
+                            <div class="outer">
+                                <div class="height">
+                                    <a href="/" class="inner">Киноняшка</a>
+                                </div>
+                            </div>
+                        </h1>
                         <p class="lead text-muted">Здесь вы можете просмотреть предстоящие обзоры кинопремьер и забронировать места</p>
                     </div>
                 </section>
@@ -42,7 +50,8 @@
                 <div class="container">
 
                     <div class="row">
-                        <h3 class="jumbotron-heading">Самые посещаемые фильмы: </h3>
+                        <i class="fas fa-film jumbotron-icon"></i>
+                        <h2 class="jumbotron-heading">Самые посещаемые фильмы: </h2>
                         {% block slider %}
                             <div id="owl" class="owl-carousel owl-theme">
                                 {% for popularFilm in popularFilms %}
@@ -55,19 +64,22 @@
                             </div>
                         {% endblock %}
                     </div>
-                    <div class="row">
-                        <h3 class="jumbotron-heading">Сегодня в кино: </h3>
+                    <div class="row ">
+                        <i class="fas fa-tv jumbotron-icon"></i>
+                        <h2 class="jumbotron-heading">Сегодня в кино: </h2>
+                        <div class=" gridSelector">
                         {% for film in films %}
-                            <div class="col-md-4">
+                            <div class="col-md-4 gridItem">
                                 <div class="card mb-4 box-shadow">
-                                    <a href="/films/view/film/{{ film.slug }}" title="">
+                                    <a href="/films/view/film/{{ film.slug }}" title="{{ film.title }}">
                                         <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="/uploads/{{ film.img }}" data-holder-rendered="true">
                                     </a>
                                     <div class="card-body">
+                                        <a class="gridItem-title" href="/films/view/film/{{ film.slug }}" title="{{ film.title }}">{{ film.title }}</a>
                                         <p class="card-text">{{ film.description|truncate(100) }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
-                                                <button onclick="window.location.href='/films/view/film/{{ film.slug }}'" type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                                <button onclick="window.location.href='/films/view/film/{{ film.slug }}'" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</button>
                                             </div>
                                             <small class="text-muted">{{ film.country }}</small>
                                         </div>
@@ -75,6 +87,7 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,126 +102,19 @@
 
     {% block footer %}
     <!-- Footer -->
-    <footer class="page-footer font-small indigo">
-
-        <!-- Footer Links -->
-        <div class="container">
-
-            <!-- Grid row-->
-            <div class="row text-center d-flex justify-content-center pt-5 mb-3">
-
-                <!-- Grid column -->
-                <div class="col-md-2 mb-3">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">About us</a>
-                    </h6>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 mb-3">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Products</a>
-                    </h6>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 mb-3">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Awards</a>
-                    </h6>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 mb-3">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Help</a>
-                    </h6>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 mb-3">
-                    <h6 class="text-uppercase font-weight-bold">
-                        <a href="#!">Contact</a>
-                    </h6>
-                </div>
-                <!-- Grid column -->
-
+        <div class="footer">
+            <div class="container">
+                <a href='#'><i class="fab fa-twitch fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-facebook fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-twitter fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-youtube fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fa fa-rss fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-vine fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-flickr fa-3x fa-fw"></i></a>
+                <a href='#'><i class="fab fa-linkedin fa-3x fa-fw"></i></a>
+                </span>
             </div>
-            <!-- Grid row-->
-            <hr class="rgba-white-light" style="margin: 0 15%;">
-
-            <!-- Grid row-->
-            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
-
-                <!-- Grid column -->
-                <div class="col-md-8 col-12 mt-5">
-                    <p style="line-height: 1.7rem">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                        accusantium doloremque laudantium, totam rem
-                        aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                        explicabo.
-                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.</p>
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Grid row-->
-            <hr class="clearfix d-md-none rgba-white-light" style="margin: 10% 15% 5%;">
-
-            <!-- Grid row-->
-            <div class="row pb-3">
-
-                <!-- Grid column -->
-                <div class="col-md-12">
-
-                    <div class="mb-5 flex-center">
-
-                        <!-- Facebook -->
-                        <a class="fb-ic">
-                            <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
-                        </a>
-                        <!-- Twitter -->
-                        <a class="tw-ic">
-                            <i class="fab fa-twitter fa-lg white-text mr-4"> </i>
-                        </a>
-                        <!-- Google +-->
-                        <a class="gplus-ic">
-                            <i class="fab fa-google-plus-g fa-lg white-text mr-4"> </i>
-                        </a>
-                        <!--Linkedin -->
-                        <a class="li-ic">
-                            <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
-                        </a>
-                        <!--Instagram-->
-                        <a class="ins-ic">
-                            <i class="fab fa-instagram fa-lg white-text mr-4"> </i>
-                        </a>
-                        <!--Pinterest-->
-                        <a class="pin-ic">
-                            <i class="fab fa-pinterest fa-lg white-text"> </i>
-                        </a>
-
-                    </div>
-
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Grid row-->
-
         </div>
-        <!-- Footer Links -->
-
-        <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-        </div>
-        <!-- Copyright -->
-
-    </footer>
     <!-- Footer -->
     {% endblock %}
 </body>

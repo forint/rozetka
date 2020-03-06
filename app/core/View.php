@@ -1,11 +1,9 @@
 <?php
-
-
 namespace App\Core;
 
 
 /**
- * View
+ * Twig view
  */
 class View
 {
@@ -59,6 +57,14 @@ class View
             self::$engine = new \Twig\Environment($loader, array('debug' => true));
             self::$engine->addExtension(new \Twig\Extension\DebugExtension());
             self::$engine->addExtension(new \Twig_Extensions_Extension_Text());
+
+            $filter = new \Twig\TwigFilter('date_russian_month', function ($date) {
+                $months = [1 => 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+                $date = \DateTime::createFromFormat('Y-m-d H:i:s', $date);
+                $key = $date->format('n');
+                return $date->format('d ' . $months[$key] . ' Y');
+            });
+            self::$engine->addFilter($filter);
         }
 
         echo self::$engine->render($template, $args);

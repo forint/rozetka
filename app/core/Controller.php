@@ -50,6 +50,7 @@ abstract class Controller
         }
     }
 
+
     /**
      * Before filter - called before an action method.
      *

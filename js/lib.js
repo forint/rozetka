@@ -66,7 +66,6 @@ function takeData() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
-            // console.log(thrownError);
         }
     });
 
@@ -101,6 +100,8 @@ function updateTextArea() {
         dataType: 'json',
         success: function (response) {
             $('.select-places-now').html(response['0']);
+            $(".seatStructure :checkbox").removeClass('select-places-now-available');
+            $(".seatStructure :checkbox").prop('disabled', true);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
@@ -114,7 +115,18 @@ $(":checkbox").click(function() {
 });
 
 $(document).ready(function(){
-    $('#owl').owlCarousel({
+
+    /** Clear seats if, user change session */
+    if ($('.needs-validation input, .needs-validation select').length > 0){
+        jQuery('.needs-validation input, .needs-validation select').change(function(input){
+            $(".seatStructure :checkbox").removeClass('reserved');
+            $(".seatStructure :checkbox").removeClass('select-places-now-available');
+            $(".seatStructure :checkbox").removeProp('checked');
+            $(".seatStructure :checkbox").prop('disabled', true);
+        });
+    }
+    if ($("#owl").length > 0){
+        $('#owl').owlCarousel({
         items: 5,
         margin: 15,
         autoplay: true,
@@ -140,11 +152,60 @@ $(document).ready(function(){
             }
         }
     });
-    //Background image
-    $( '.img-wrap' ).each( function(){
-        var img = $( this ).find( 'img' );
-        var src = img.attr( 'src' );
-        $( this ).css( 'background-image', 'url( '+ src +' )' );
-    });
+    }
 
+    if ($(".img-wrap").length > 0){
+        // Background image
+        $('.img-wrap').each( function(){
+            let img = $( this ).find( 'img' );
+            let src = img.attr( 'src' );
+            $( this ).css( 'background-image', 'url( '+ src +' )' );
+        });
+    }
+
+    if ($(".gridSelector").length > 0){
+        let grid = $(".gridSelector");
+        let asyncGrid = new Gridifier(grid, {
+            "class": "gridItem",
+        });
+        asyncGrid.append(asyncGrid.collectNew());
+    }
+
+    $('#myModal').on('show.bs.modal', function (e) {
+        let element = $(e.relatedTarget).parent();
+        let index = $(e.relatedTarget).index( 'td' );
+
+        let data = {
+            'film_id' : $(element).children('.film-id').text().replace(".", ""),
+            'session' : $(e.relatedTarget).closest('table').children('thead').children('tr').children('th').eq(index).text().replace("-00", "")
+        };
+
+        $.ajax({
+            url: "/films/checkReservedSeats",
+            type: "POST",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (Array.isArray(response) && response.length > 0){
+                    $(".seatStructure input[type=checkbox]").each(function(index, element){
+                        if (response.includes($(element).val())){
+                            $(element).addClass('reserved');
+                        }else{
+                            $(element).prop('checked', false);
+                            $(element).removeClass('reserved');
+                        }
+                    });
+                }else{
+                    $(".seatStructure input[type=checkbox]").each(function(index, element){
+
+                        $(element).prop('checked', false);
+                        $(element).removeClass('reserved');
+                    });
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
+            }
+        });
+    })
 });

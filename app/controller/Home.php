@@ -45,12 +45,14 @@ class Home extends Controller
      */
     public function indexAction()
     {
+        $this->connection->where("f.status", '1');
         $this->connection->join("booking b", "b.film_id=f.id", "LEFT");
         $this->connection->groupBy("f.id");
         $this->connection->orderBy("TotalValue", 'DESC');
         $this->connection->orderBy("created", 'DESC');
         $popularFilms = $this->connection->get('films f', 5, "f.*, SUM((CHAR_LENGTH(b.seats) - CHAR_LENGTH(REPLACE(b.seats, ',', '')) + 1) ) as TotalValue");
 
+        $this->connection->where("status", '1');
         $this->connection->orderBy("created", 'DESC');
         $films = $this->connection->get('films');
 
