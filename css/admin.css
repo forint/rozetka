@@ -35,6 +35,22 @@ section.content .row {
 }
 
 
+/** Flash Messages */
+.messages ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.messages ul li{
+    background: #343A3E;
+    margin: 0;
+    padding: 15px;
+    list-style-type: none;
+    color: red;
+    font-size: 16px;
+}
+/** Flash Messages */
+
 /** Booking field validation */
 .needs-validation .md-form {
     position: relative;
