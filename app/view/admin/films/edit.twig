@@ -150,6 +150,15 @@
         {% block wrapper %}
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper" >
+                <div class="messages">
+                    <ul>
+                        {% if messages is defined %}
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <div class="container-fluid">
@@ -169,6 +178,7 @@
 
                 <!-- Main content -->
                 <section class="content">
+
                     <form name="edit_form" action="/admin/films/edit" method="post" role="form" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ film.id }}">
                         <div class="row">

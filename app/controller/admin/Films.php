@@ -48,9 +48,11 @@ class Films extends Controller
         if ($_SESSION && $_SESSION['is_admin'] == '1'){
 
             $films = $this->connection->get ('films');
+            $messages = (array_key_exists('messages', $_GET)) ? $_GET['messages'] : null;
 
             View::renderTemplate('admin/films/list.twig',[
-                'films' => $films
+                'films' => $films,
+                'messages' => $messages,
             ]);
         }else{
             header('Location: /');
@@ -111,9 +113,9 @@ class Films extends Controller
                         $result = $connection->update('films', $_POST);
 
                         if ($result){
-                            header('Location: /admin/films/index?message=Film updated successfully');
+                            header('Location: /admin/films/index?messages[]=Film updated successfully');
                         }else{
-                            header('Location: /admin/films/add?message=Can\'t insert film: ' . $connection->getLastError());
+                            header('Location: /admin/films/add?messages[]=Can\'t insert film: ' . $connection->getLastError());
                         }
                     }
                 }else{
@@ -135,9 +137,13 @@ class Films extends Controller
                             $this->connection->where("id", $id);
                             $result = $connection->update('films', $_POST);
 
-                            header('Location: /admin/films/index?message=Film inserted successfully');
+                            header('Location: /admin/films/index?messages[]=Film inserted successfully');
                         }else{
-                            header('Location: /admin/films/add?message=Can\'t insert film: ' . $connection->getLastError());
+                            header('Location: /admin/films/add?messages[]=Can\'t insert film: ' . $connection->getLastError());
+                        }
+                    }else{
+                        if (!$id || !is_numeric($id)){
+                            header('Location: /admin/films/index?messages[]=Film isn\'t inserted. Title or description is empty!');
                         }
                     }
                 }
