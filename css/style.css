@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Averia+Libre');
 
-html {
+html, body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
     font-size: 14px !important;
 }
 a {
@@ -10,6 +11,24 @@ a {
 a:hover {
     font-weight: 600;
     color: #000;
+}
+h1.jumbotron-heading {
+    margin-bottom: 0px !important;
+}
+h2.jumbotron-heading {
+    padding: 0 15px 8px 0;
+}
+h3.card-header {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+hr {
+    border-top: 1px solid #000 !important;
+}
+
+.container > .row {
+    margin-bottom: 20px;
 }
 .jumbotron {
     cursor: pointer;
@@ -29,14 +48,6 @@ a:hover {
     text-align: center;
     color: #ff7b00 !important;
     text-shadow: -0.1rem -0.1rem 0.1rem #000000, 0.1rem 0.2rem 0.3rem rgba(255, 255, 255, 0.8), 0 0 4rem #ff7b00;
-}
-h1.jumbotron-heading {
-    margin-bottom: 0px !important;
-}
-h3.card-header {
-    padding: 0;
-    margin: 0;
-    text-align: center;
 }
 .jumbotron p {
     color: #ff7b00 !important;
@@ -59,14 +70,16 @@ h3.card-header {
     margin-right: 20px;
     float: left;
 }
-/*.gridItem {
-    padding-left: 0px !important;
-    padding-right: 12px !important;
+.mt-4 {
+    padding:0;
+    margin-top:0;
+    margin-bottom:5px;
 }
-.gridItem:nth-child(3n){
-    padding-left: 0px !important;
-    padding-right: 0px !important;
-}*/
+.lead {
+    color: #000 !important;
+    font-size: 14px !important;
+    margin-bottom: 12px !important;
+}
 /*.col-md-4 {
     padding-left: 0px !important;
     padding-right: 30px !important;
@@ -352,66 +365,65 @@ input[type=checkbox].reserved:before {
     visibility: hidden;
 }*/
 
+/** Footer */
 .footer {
     width: 100%;
     height: 150px;
     background-color: #111;
     text-align: center;
+    margin-top: 40px;
 }
-
 .footer .container{
     padding-top: 50px;
     color: #fff;
     width: 100%;
 }
-
 .fa-twitter {
     color: #4099FF;
 }
-
 .fa-facebook {
     color: #3B5998;
 }
-
 .fa-youtube-play {
     color: #e52d27;
 }
-
 .fa-rss {
     color: #FF6600;
 }
-
 .fa-vine {
     color: #00a478;
 }
-
 .fa-flickr {
     color: #ff0084;
 }
-
 .fa-twitch {
     color: #6441A5;
 }
-
 .fa-linkedin {
     color: #007bb6;
 }
-
 .fa {
     opacity: 0.7;
     transition: 1s;
     -webkit-transition: 1s;
 }
-
 .fa:hover {
     opacity: 1;
     transition: 1s;
     -webkit-transition: 1s;
 }
+/** Footer */
 
 /** 404 page */
-body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);}
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}
 .error-actions .btn { margin-right:10px; }
 /** 404 page */
+
+.jumbotron-icon {
+    display: block;
+    color: #ff7b00;
+    font-size: 40px;
+    float: left;
+    margin: 15px 8px 0px 18px;
+}

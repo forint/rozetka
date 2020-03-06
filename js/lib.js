@@ -66,7 +66,6 @@ function takeData() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
-            // console.log(thrownError);
         }
     });
 
@@ -172,4 +171,41 @@ $(document).ready(function(){
         asyncGrid.append(asyncGrid.collectNew());
     }
 
+    $('#myModal').on('show.bs.modal', function (e) {
+        let element = $(e.relatedTarget).parent();
+        let index = $(e.relatedTarget).index( 'td' );
+
+        let data = {
+            'film_id' : $(element).children('.film-id').text().replace(".", ""),
+            'session' : $(e.relatedTarget).closest('table').children('thead').children('tr').children('th').eq(index).text().replace("-00", "")
+        };
+
+        $.ajax({
+            url: "/films/checkReservedSeats",
+            type: "POST",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                if (Array.isArray(response) && response.length > 0){
+                    $(".seatStructure input[type=checkbox]").each(function(index, element){
+                        if (response.includes($(element).val())){
+                            $(element).addClass('reserved');
+                        }else{
+                            $(element).prop('checked', false);
+                            $(element).removeClass('reserved');
+                        }
+                    });
+                }else{
+                    $(".seatStructure input[type=checkbox]").each(function(index, element){
+
+                        $(element).prop('checked', false);
+                        $(element).removeClass('reserved');
+                    });
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('.select-places-now').html('Что-то пошло не так. Пожалуйста попробуйте ещё.');
+            }
+        });
+    })
 });

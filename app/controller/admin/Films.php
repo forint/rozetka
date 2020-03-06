@@ -109,10 +109,7 @@ class Films extends Controller
                         $this->connection->setTrace(true);
                         $this->connection->where("id", $filmId);
                         $result = $connection->update('films', $_POST);
-/*print_r("<pre>");
-print_r($this->connection->trace);
-print_r("</pre>");
-die;*/
+
                         if ($result){
                             header('Location: /admin/films/index?message=Film updated successfully');
                         }else{
@@ -145,11 +142,9 @@ die;*/
                     }
                 }
             }catch(\Exception $e){
-                print_r("<pre>");
-                print_r($e->getMessage());
-                print_r("</pre>");
-                die;
+                // TODO:: Need require some logger interface, and write errors into a file
             }
+
             if ($id && is_numeric($id)){
 
                 $this->connection->where ("id", $id);
@@ -165,6 +160,12 @@ die;*/
         }
     }
 
+    /**
+     * Delete film
+     *
+     * @param int|null $id
+     * @throws \Exception
+     */
     public function deleteAction(int $id = null)
     {
         if ($_SESSION && $_SESSION['is_admin'] == '1'){
@@ -193,11 +194,14 @@ die;*/
     }
 
     /**
+     * Upload image
+     *
      * @param $filmId
      * @return string
      */
-    private function uploadImage($filmId)
+    private function uploadImage($filmId): string
     {
+        $newFileName= '';
         if (sizeof($_FILES) > 0){
             $ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
             $newFileName = $filmId.'.'.$ext;

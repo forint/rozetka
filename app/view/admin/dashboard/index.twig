@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    {#<link rel="stylesheet" href="/css/style.css" crossorigin="anonymous">#}
     <link rel="stylesheet" href="/css/admin.css" crossorigin="anonymous">
     <link rel="stylesheet" href="/vendor/almasaeed2010/adminlte/dist/css/adminlte.min.css" crossorigin="anonymous">
     <!--Fontawesome CDN-->
@@ -12,6 +13,7 @@
     <script src="/js/jquery.js"></script>
     <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/vendor/almasaeed2010/adminlte/dist/js/adminlte.min.js"></script>
+    <script src="/js/lib.js"></script>
 {% endblock %}
 
 {% block title %}Dashboard!{% endblock %}
@@ -26,12 +28,12 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                {#<li class="nav-item d-none d-sm-inline-block">
                     <a href="index3.html" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
-                </li>
+                </li>#}
             </ul>
 
             <!-- SEARCH FORM -->
@@ -249,12 +251,12 @@
                                         <tr>
                                             <th style="width: 10px">#</th>
                                             <th>Film</th>
-                                            <th>10-00</th>
-                                            <th>12-00</th>
-                                            <th>14-00</th>
-                                            <th>16-00</th>
-                                            <th>18-00</th>
-                                            <th>20-00</th>
+                                            <th class="film-session">10-00</th>
+                                            <th class="film-session">12-00</th>
+                                            <th class="film-session">14-00</th>
+                                            <th class="film-session">16-00</th>
+                                            <th class="film-session">18-00</th>
+                                            <th class="film-session">20-00</th>
                                             <th>Progress</th>
                                             <th style="width: 40px">Label</th>
                                         </tr>
@@ -263,14 +265,14 @@
 
                                         {% for film in films %}
                                             <tr>
-                                                <td>{{ film.id }}.</td>
+                                                <td class="film-id">{{ film.id }}.</td>
                                                 <td>{{ film.title }}</td>
-                                                <th>{{ sessionsSeats[film.id][10]|length }}</th>
-                                                <th>{{ sessionsSeats[film.id][12]|length }}</th>
-                                                <th>{{ sessionsSeats[film.id][14]|length }}</th>
-                                                <th>{{ sessionsSeats[film.id][16]|length }}</th>
-                                                <th>{{ sessionsSeats[film.id][18]|length }}</th>
-                                                <th>{{ sessionsSeats[film.id][20]|length }}</th>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][10]|length }}</span></td>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][12]|length }}</span></td>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][14]|length }}</span></td>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][16]|length }}</span></td>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][18]|length }}</span></td>
+                                                <td class="film-session" data-toggle="modal" data-target="#myModal"><span class="film-session-round">{{ sessionsSeats[film.id][20]|length }}</span></td>
 
                                                 {% set progress = counterSeats[film.id]|length*100/300 %}
                                                 {% if progress < 25 %}
@@ -324,5 +326,107 @@
             <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>
     </div>
-    <!-- ./wrapper -->
+
+    {% block footer %}{% endblock %}
+
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Статус резервирования</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="seatStructure">
+                        <table class="booking" id="seatsBlock">
+                            <p id="notification"></p>
+                            <tr>
+                                <td colspan="10"><div class="screen">Экран</div></td>
+                            </tr>
+
+                            <tr>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A1"><label>A1</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A2"><label>A2</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A3"><label>A3</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A4"><label>A4</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A5"><label>A5</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A6"><label>A6</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A7"><label>A7</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A8"><label>A8</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A9"><label>A9</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="A10"><label>A10</label></div></td>
+                            </tr>
+
+                            <tr>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B1"><label>B1</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B2"><label>B2</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B3"><label>B3</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B4"><label>B4</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B5"><label>B5</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B6"><label>B6</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B7"><label>B7</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B8"><label>B8</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B9"><label>B9</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="B10"><label>B10</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C1"><label>C1</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C2"><label>C2</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C3"><label>C3</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C4"><label>C4</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C5"><label>C5</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C6"><label>C6</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C7"><label>C7</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C8"><label>C8</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C9"><label>C9</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="C10"><label>C10</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D1"><label>D1</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D2"><label>D2</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D3"><label>D3</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D4"><label>D4</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D5"><label>D5</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D6"><label>D6</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D7"><label>D7</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D8"><label>D8</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D9"><label>D9</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="D10"><label>D10</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E1"><label>E1</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E2"><label>E2</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E3"><label>E3</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E4"><label>E4</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E5"><label>E5</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E6"><label>E6</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E7"><label>E7</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E8"><label>E8</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E9"><label>E9</label></div></td>
+                                <td><div class="seat"><input type="checkbox" class="seats" value="E10"><label>E10</label></div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"  class="screen-tips">
+                                    <div class="smallBox greenBox">Selected Seat</div>
+                                </td>
+                                <td colspan="3"  class="screen-tips">
+                                    <div class="smallBox redBox">Reserved Seat</div>
+                                </td>
+                                <td colspan="3"  class="screen-tips">
+                                    <div class="smallBox emptyBox">Empty Seat</div>
+                                </td>
+                            </tr>
+                        </table>
+                        {#<button class="btn btn-primary" onclick="updateTextArea()">Подтвердить выбраные места</button>#}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {#<button type="button" class="btn btn-primary">Save changes</button>#}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -16,7 +16,8 @@
 
                 <div class="col-lg-8">
                     <h1 class="mt-4">{{ film.title }}</h1>
-                    <p>Опубликовано: {{ film.created|date("F jS \\a\\t g:ia") }}</p><hr>
+                    {#<p>Опубликовано: {{ film.created|date("F jS \\a\\t g:ia") }}</p><hr>#}
+                    <p>Опубликовано: {{ film.created|date_russian_month }} года</p><hr>
                     <div class="film-attributes">
                         <img class="img-fluid rounded" src="/uploads/{{ film.img }}" alt="">
                         {% if film.director is defined and film.director is not null and film.director is not empty %}
@@ -34,7 +35,7 @@
                         <div style="clear: both"></div>
                     </div>
                     <hr>
-                    <p class="lead">{{ film.description }}</p>
+                    <p>{{ film.description }}</p>
 
                     {# Comments Form#}
                     {#<div class="card my-4">

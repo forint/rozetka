@@ -1,11 +1,12 @@
 <?php
-
-
 namespace App\Core;
-
 
 use Klarna\Core\Exception;
 
+/**
+ * Class Router
+ * @package App\Core
+ */
 class Router {
     /**
      * Associative array of routes (the routing table)
@@ -24,8 +25,8 @@ class Router {
      *
      * @param string $route The route URL
      * @param array $params Parameters (controller, action, etc.)
-     *
-     * @return avoid
+     * @param $route
+     * @param null $params
      */
     public function add($route, $params = null)
     {
@@ -66,7 +67,6 @@ class Router {
     {
         foreach ($this->routes as $route => $params) {
 
-            //echo $route.' => '.$url.'<br>';
             if (preg_match($route, $url, $matches)) {
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
@@ -76,6 +76,7 @@ class Router {
                 $this->params = $params;
                 return true;
             }
+
         }
 
         return false;
@@ -101,7 +102,7 @@ class Router {
      */
     public function dispatch($url)
     {
-        //$url = $this->removeQueryStringVariables($url);
+        // $url = $this->removeQueryStringVariables($url);
         $url = trim($url, '/');
 
         try {
@@ -122,10 +123,6 @@ class Router {
                     // if (is_callable([$controller_object, $action])) {
                     if (preg_match('/action$/i', $action) == 0) {
 
-    /*print_r("<pre>");
-    print_r($this->getNamespace());
-    print_r("</pre>");
-    die;*/
                         $offset = (array_key_exists('namespace', $this->params))?3:2;
                         $args = $_args = array_slice($this->params, $offset);
                         $paramKey = key(array_splice( $_args, 0, 1 ));
@@ -146,10 +143,7 @@ class Router {
                 echo 'No route matched.';
             }
         }catch(Exception $e){
-            print_r("<pre>");
-            print_r($e->getMessage());
-            print_r("</pre>");
-            die;
+            // TODO:: Need require some logger interface, and write errors into a file
         }
     }
 

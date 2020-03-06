@@ -7,7 +7,7 @@ use App\Core\Database;
 use App\Core\View;
 
 /**
- * User admin controller
+ * Dashboard controller
  */
 class Dashboard extends Controller
 {
@@ -32,16 +32,6 @@ class Dashboard extends Controller
 
         $this->db = new Database();
         $this->connection = $this->db::getInstance();
-    }
-    /**
-     * Before filter
-     *
-     * @return void
-     */
-    protected function before()
-    {
-        // Make sure an admin user is logged in for example
-        // return false;
     }
 
     /**
@@ -69,11 +59,10 @@ class Dashboard extends Controller
             $_films = $this->connection->get('films f', null, "f.*, b.session, b.seats");
 
 
-            $this->connection->setTrace(true);
             $this->connection->join("booking b", "b.film_id=f.id", "LEFT");
             //$this->connection->groupBy ("f.id");
-            $films = $this->connection->get('films f', null, "f.*, b.session, b.seats");//GROUP_CONCAT(b.session SEPARATOR '|') AS sessions, GROUP_CONCAT(b.seats SEPARATOR '|') AS seats
-            //print_r ($this->connection->trace); die;
+            $films = $this->connection->get('films f', null, "f.*, b.session, b.seats");
+            // GROUP_CONCAT(b.session SEPARATOR '|') AS sessions, GROUP_CONCAT(b.seats SEPARATOR '|') AS seats
 
             /**
              * Grouping all data into multidimensional array:
@@ -91,18 +80,17 @@ class Dashboard extends Controller
 
                     if ($seats){
                         for ($i = 0; $i < sizeof($seats); $i++){
-                            if (!array_key_exists($film['id'], $counterSeats)){ // && !is_array($counterSeats[$film['id']])
+                            
+                            if (!array_key_exists($film['id'], $counterSeats)){
                                 $counterSeats[$film['id']] = [];
                             }
 
-                            if (!array_key_exists($film['id'], $sessionsSeats) || !array_key_exists($film['session'], $sessionsSeats[$film['id']])){ //&& !array_key_exists($sessions[$i], $sessionsSeats[$film['id']]) && !is_array($sessionsSeats[$film['id']][$sessions[$i]])
+                            if (!array_key_exists($film['id'], $sessionsSeats) || !array_key_exists($film['session'], $sessionsSeats[$film['id']])){
                                 $sessionsSeats[$film['id']][$film['session']] = [];
                             }
 
                             $counterSeats[$film['id']] = array_merge($counterSeats[$film['id']], explode('|',$seats[$i]));
-                            //if (array_key_exists($i, $sessions) && array_key_exists($sessions[$i], $sessionsSeats[$film['id']])){
                             $sessionsSeats[$film['id']][$film['session']] = array_merge($sessionsSeats[$film['id']][$film['session']], explode('|',$seats[$i]));
-                           // }
                         }
                     }
                 }

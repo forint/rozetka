@@ -36,7 +36,7 @@
                         <h1 class="jumbotron-heading">
                             <div class="outer">
                                 <div class="height">
-                                    <a href="/" class="inner">Киноняша</a>
+                                    <a href="/" class="inner">Киноняшка</a>
                                 </div>
                             </div>
                         </h1>
@@ -50,7 +50,8 @@
                 <div class="container">
 
                     <div class="row">
-                        <h3 class="jumbotron-heading">Самые посещаемые фильмы: </h3>
+                        <i class="fas fa-film jumbotron-icon"></i>
+                        <h2 class="jumbotron-heading">Самые посещаемые фильмы: </h2>
                         {% block slider %}
                             <div id="owl" class="owl-carousel owl-theme">
                                 {% for popularFilm in popularFilms %}
@@ -64,7 +65,8 @@
                         {% endblock %}
                     </div>
                     <div class="row ">
-                        <h3 class="jumbotron-heading">Сегодня в кино: </h3>
+                        <i class="fas fa-tv jumbotron-icon"></i>
+                        <h2 class="jumbotron-heading">Сегодня в кино: </h2>
                         <div class=" gridSelector">
                         {% for film in films %}
                             <div class="col-md-4 gridItem">
