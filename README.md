@@ -8,6 +8,8 @@ Application for booking of visitors to films in one cinema.
 Installation 
 --------------
 
+Run composer install
+
 You can create clear mysql database with file: db_only_structure.sql
 
 Or you can import database with sample data with file: db_width_sample_data.sql
