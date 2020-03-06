@@ -1,4 +1,4 @@
-2makewine
+Kinonyashka
 ========================
 
 Welcome to the Kinonyashka!
